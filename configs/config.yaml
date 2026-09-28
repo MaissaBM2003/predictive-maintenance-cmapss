@@ -1,0 +1,11 @@
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  dataset: FD001
+
+preprocessing:
+  window_size: 30
+  rul_cap: 125
+
+mlflow:
+  experiment_name: predictive-maintenance
