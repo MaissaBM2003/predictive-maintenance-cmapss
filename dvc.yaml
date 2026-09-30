@@ -1,0 +1,13 @@
+stages:
+  preprocess:
+    cmd: python -m src.preprocessing
+    deps:
+    - data/raw
+    - src/data_loader.py
+    - src/preprocessing.py
+    - src/validation.py
+    params:
+    - configs/config.yaml:
+      - preprocessing
+    outs:
+    - data/processed

@@ -1,0 +1,46 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python -m src.preprocessing
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: 4f031cda497f36cac6922c0e7238b1f9.dir
+      size: 44913306
+      nfiles: 12
+    - path: src/data_loader.py
+      hash: md5
+      md5: d82e13509bbb92dbe8d53689d704484e
+      size: 573
+    - path: src/preprocessing.py
+      hash: md5
+      md5: 6706c806f1b114a36f1f8d4074e890a4
+      size: 2714
+    - path: src/validation.py
+      hash: md5
+      md5: 8b3cff2f7f04f77f215fcbc0e0eb7e52
+      size: 446
+    params:
+      configs/config.yaml:
+        preprocessing:
+          window_size: 30
+          rul_cap: 125
+          val_size: 0.2
+          seed: 42
+          drop_columns:
+          - op_1
+          - op_2
+          - op_3
+          - s_1
+          - s_5
+          - s_6
+          - s_10
+          - s_16
+          - s_18
+          - s_19
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 5ff11b2a68ea21185f271832dc493801.dir
+      size: 30030921
+      nfiles: 2

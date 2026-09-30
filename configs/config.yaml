@@ -6,6 +6,8 @@ data:
 preprocessing:
   window_size: 30
   rul_cap: 125
+  val_size: 0.2
+  seed: 42
   drop_columns: [op_1, op_2, op_3, s_1, s_5, s_6, s_10, s_16, s_18, s_19]
 
 mlflow:

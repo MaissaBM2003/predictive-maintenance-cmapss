@@ -15,7 +15,8 @@ dependencies = [
     "seaborn (>=0.13.2,<0.14.0)",
     "pyyaml (>=6.0.3,<7.0.0)",
     "mlflow (>=3.16.1,<4.0.0)",
-    "dvc (>=3.67.1,<4.0.0)"
+    "dvc (>=3.67.1,<4.0.0)",
+    "pandera (>=0.33.1,<0.34.0)"
 ]
 
 
@@ -28,3 +29,5 @@ dev = [
     "pytest (>=9.1.1,<10.0.0)",
     "ipykernel (>=7.4.0,<8.0.0)"
 ]
+[tool.pytest.ini_options]
+pythonpath = ["."]
