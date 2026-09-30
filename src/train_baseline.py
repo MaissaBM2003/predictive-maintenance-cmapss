@@ -1,5 +1,6 @@
 import mlflow
 import mlflow.sklearn
+import mlflow.lightgbm
 import numpy as np
 import yaml
 from lightgbm import LGBMRegressor
@@ -53,7 +54,11 @@ def main():
                 "test_mae": mae(y_test, p_test),
                 "test_nasa_score": nasa_score(y_test, p_test),
             })
-            mlflow.sklearn.log_model(model, "model")
+            if name == "lightgbm":
+                mlflow.lightgbm.log_model(model, name="model")
+            else:
+                mlflow.sklearn.log_model(model, name="model",
+                                         skops_trusted_types=["sklearn.tree._tree.Tree"])
 
             print(f"{name:18s} | CV RMSE {np.mean(cv_scores):.2f} ± {np.std(cv_scores):.2f} "
                   f"| Val RMSE {rmse(y_val, p_val):.2f} | Test RMSE {rmse(y_test, p_test):.2f}")
