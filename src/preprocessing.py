@@ -23,13 +23,14 @@ def split_by_unit(df, val_size, seed):
 
 
 def make_windows(df, features, window):
-    X, y = [], []
-    for _, d in df.groupby("unit"):
+    X, y, units = [], [], []
+    for unit, d in df.groupby("unit"):
         values, rul = d[features].values, d["rul"].values
         for i in range(len(d) - window + 1):
             X.append(values[i:i + window])
             y.append(rul[i + window - 1])
-    return np.array(X, dtype=np.float32), np.array(y, dtype=np.float32)
+            units.append(unit)
+    return np.array(X, dtype=np.float32), np.array(y, dtype=np.float32), np.array(units)
 
 
 def make_test_windows(test, rul, features, window, cap):
@@ -64,14 +65,15 @@ def main():
         df[features] = scaler.transform(df[features])
 
     w = p["window_size"]
-    X_train, y_train = make_windows(train_df, features, w)
-    X_val, y_val = make_windows(val_df, features, w)
+    X_train, y_train, units_train = make_windows(train_df, features, w)
+    X_val, y_val, units_val = make_windows(val_df, features, w)
     X_test, y_test = make_test_windows(test, rul, features, w, p["rul_cap"])
 
     out = Path(data_cfg["processed_dir"])
     out.mkdir(parents=True, exist_ok=True)
     np.savez(out / "windows.npz", X_train=X_train, y_train=y_train,
              X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test,
+             units_train=units_train, units_val=units_val,
              features=np.array(features))
     joblib.dump(scaler, out / "scaler.joblib")
 

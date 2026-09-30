@@ -1,4 +1,4 @@
-import pandera as pa
+import pandera.pandas as pa
 from pandera import Column, Check, DataFrameSchema
 
 op_cols = {f"op_{i}": Column(float, nullable=False) for i in range(1, 4)}

@@ -16,8 +16,8 @@ def test_rul_cap():
 
 
 def test_windows_shape():
-    X, y = make_windows(add_rul(toy_data(), 125), ["s_2"], 30)
-    assert X.shape == (22, 30, 1) and len(y) == 22
+    X, y, units = make_windows(add_rul(toy_data(), 125), ["s_2"], 30)
+    assert X.shape == (22, 30, 1) and len(y) == 22 and len(units) == 22
 
 
 def test_no_unit_overlap():
