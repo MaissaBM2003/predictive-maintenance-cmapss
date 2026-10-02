@@ -2,7 +2,6 @@ import argparse
 import copy
 
 import mlflow
-import mlflow.pytorch
 import numpy as np
 import torch
 import yaml
@@ -94,7 +93,8 @@ def main():
             "test_mae": mae(y_test, p_test),
             "test_nasa_score": nasa_score(y_test, p_test),
         })
-        mlflow.pytorch.log_model(model, "model")
+        torch.save(best_state, "model_state.pt")
+        mlflow.log_artifact("model_state.pt", artifact_path="model")
         print(f"{args.model} | Val RMSE {rmse(y_val, p_val):.2f} | Test RMSE {rmse(y_test, p_test):.2f}")
 
 
