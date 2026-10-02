@@ -12,3 +12,10 @@ preprocessing:
 
 mlflow:
   experiment_name: predictive-maintenance
+
+deep_learning:
+  batch_size: 256
+  lr: 0.001
+  max_epochs: 100
+  patience: 10
+  seed: 42
