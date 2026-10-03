@@ -19,3 +19,17 @@ deep_learning:
   max_epochs: 100
   patience: 10
   seed: 42
+
+
+anomaly:
+  hidden: 128
+  latent: 16
+  lr: 0.001
+  batch_size: 256
+  max_epochs: 100
+  patience: 10
+  threshold_percentile: 99
+  consecutive: 3
+  seed: 42
+
+  
