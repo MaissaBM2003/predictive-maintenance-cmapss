@@ -32,4 +32,5 @@ anomaly:
   consecutive: 3
   seed: 42
 
-  
+tuning:
+  n_trials: 30

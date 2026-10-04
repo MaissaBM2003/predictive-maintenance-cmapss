@@ -6,7 +6,7 @@ class RNNRegressor(nn.Module):
     def __init__(self, n_features, cell="lstm", hidden=64, layers=2, dropout=0.2):
         super().__init__()
         rnn = nn.LSTM if cell == "lstm" else nn.GRU
-        self.rnn = rnn(n_features, hidden, num_layers=layers, batch_first=True, dropout=dropout)
+        self.rnn = rnn(n_features, hidden, num_layers=layers, batch_first=True,dropout=dropout if layers > 1 else 0.0)
         self.head = nn.Sequential(nn.Dropout(dropout), nn.Linear(hidden, 1))
 
     def forward(self, x):
@@ -43,11 +43,11 @@ class TransformerRegressor(nn.Module):
         return self.head(h.mean(dim=1)).squeeze(-1)
 
 
-def build_model(name, n_features, window):
+def build_model(name, n_features, window, **kwargs):
     if name in ("lstm", "gru"):
-        return RNNRegressor(n_features, cell=name)
+        return RNNRegressor(n_features, cell=name, **kwargs)
     if name == "cnn1d":
-        return CNN1DRegressor(n_features)
+        return CNN1DRegressor(n_features, **kwargs)
     if name == "transformer":
-        return TransformerRegressor(n_features, window)
+        return TransformerRegressor(n_features, window, **kwargs)
     raise ValueError(f"Modèle inconnu : {name}")
