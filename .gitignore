@@ -5,3 +5,4 @@ mlflow.db
 __pycache__/
 .ipynb_checkpoints/
 mlflow_kaggle/
+kaggle_runs*/
